@@ -131,6 +131,21 @@ performance-profile: "optimization"
 
 **`/load [path] [flags]`** - Project context loading | Auto-Persona: Analyzer, Architect, Scribe | MCP: All servers
 
+**`/langgraph [feature-description] [flags]`**
+```yaml
+---
+command: "/langgraph"
+category: "Development & Orchestration"
+purpose: "Multi-agent workflow orchestration with LangGraph"
+wave-enabled: true
+performance-profile: "complex"
+---
+```
+- **Auto-Persona**: LangGraph-Expert, Architect, Analyzer
+- **MCP Integration**: Sequential (orchestration), Context7 (patterns), Magic (UI workflows)
+- **Tool Orchestration**: [Read, Write, Edit, MultiEdit, Bash, Glob, Grep, TodoWrite, Task]
+- **Arguments**: `[feature-description]`, `--mode development|review|status`, `--workflow-type standard|experimental`, `--<flags>`
+
 **Iterative Operations** - Use `--loop` flag with improvement commands for iterative refinement
 
 **`/spawn [mode] [flags]`** - Task orchestration | Auto-Persona: Analyzer, Architect, DevOps | MCP: All servers
@@ -153,7 +168,8 @@ complex: "Resource-intensive with comprehensive analysis"
 - **Documentation**: document
 - **Version-Control**: git
 - **Meta**: index, load, spawn
+- **Orchestration**: langgraph
 
 ### Wave-Enabled Commands
-7 commands: `/analyze`, `/build`, `/design`, `/implement`, `/improve`, `/task`, `/workflow`
+8 commands: `/analyze`, `/build`, `/design`, `/implement`, `/improve`, `/langgraph`, `/task`, `/workflow`
 
