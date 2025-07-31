@@ -13,8 +13,6 @@ if [ -z "$PR_ID" ]; then
     exit 1
 fi
 
-OUTPUT_FILE=".claude/tasks/pr-comments-${PR_ID}.md"
-
 echo "Fetching PR review comments for PR #${PR_ID}..."
 
 # Create output directory if it doesn't exist
@@ -25,9 +23,24 @@ PR_TITLE=$(gh pr view "$PR_ID" --json title -q .title)
 PR_URL=$(gh pr view "$PR_ID" --json url -q .url)
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 
+# Get the latest review ID 
+REVIEW_ID=$(gh pr view "$PR_ID" --repo "$REPO" --json reviews --jq '.reviews | sort_by(.submittedAt) | reverse | .[0] | .id')
+
+# Get the latest review's submission date to match with comments
+LATEST_REVIEW_DATE=$(gh pr view "$PR_ID" --repo "$REPO" --json reviews --jq '.reviews | sort_by(.submittedAt) | reverse | .[0] | .submittedAt')
+
+if [ -z "$REVIEW_ID" ]; then
+    echo "No reviews found for PR #${PR_ID}"
+    exit 1
+fi
+
+OUTPUT_FILE=".claude/tasks/pr-comments-${REVIEW_ID}.md"
+
+echo "Using review ID: ${REVIEW_ID} (Date: ${LATEST_REVIEW_DATE})"
+
 # Start markdown file
 cat > "$OUTPUT_FILE" << EOF
-# PR Review Comments - #${PR_ID}
+# PR Review Comments - #${PR_ID} (Review: ${REVIEW_ID})
 
 ---
 
@@ -51,26 +64,40 @@ gh pr view "$PR_ID" --repo "$REPO" --json reviewRequests,reviews --jq '
 + "\n"
 ' >> "$OUTPUT_FILE"
 
-# Fetch inline comments on specific lines
+# Fetch ALL inline comments (not just from latest review)
 echo "" >> "$OUTPUT_FILE"
 echo "## Inline Comments" >> "$OUTPUT_FILE"
 echo "" >> "$OUTPUT_FILE"
 
-gh api "repos/${REPO}/pulls/${PR_ID}/comments" --jq '.[] |
-{
-  author: .user.login,
-  path: .path,
-  line: .line,
-  body: .body,
-  created_at: .created_at
-}' | jq -r '
-"### " + .path + ":" + (.line | tostring)
-+ "\n**Author:** @" + .author
-+ "\n**Date:** " + .created_at
-+ "\n\n```"
-+ "\n" + .body
-+ "\n```"
-+ "\n"
-' >> "$OUTPUT_FILE"
+# Get all comments and find the one that's closest to but before the latest review date
+# This handles the case where inline comments are created slightly before the review submission
+NUMERIC_REVIEW_ID=$(gh api "repos/${REPO}/pulls/${PR_ID}/comments" | jq --arg latest_date "$LATEST_REVIEW_DATE" '
+  [.[] | select(.created_at <= $latest_date)] | sort_by(.created_at) | reverse | .[0].pull_request_review_id
+')
+
+if [ "$NUMERIC_REVIEW_ID" = "null" ] || [ -z "$NUMERIC_REVIEW_ID" ]; then
+    echo "No inline comments found for the latest review." >> "$OUTPUT_FILE"
+else
+    echo "Found comments from review ID: $NUMERIC_REVIEW_ID" >> "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
+    
+    gh api "repos/${REPO}/pulls/${PR_ID}/comments" | jq --arg review_id "$NUMERIC_REVIEW_ID" '.[] |
+    select(.pull_request_review_id == ($review_id | tonumber)) |
+    {
+      author: .user.login,
+      path: .path,
+      line: (.line // .original_line // "unknown"),
+      body: .body,
+      created_at: .created_at
+    }' | jq -r '
+    "### " + .path + ":" + ((.line) | tostring)
+    + "\n**Author:** @" + .author
+    + "\n**Date:** " + .created_at
+    + "\n\n```"
+    + "\n" + .body
+    + "\n```"
+    + "\n"
+    ' >> "$OUTPUT_FILE"
+fi
 
 echo "PR review comments saved to: $OUTPUT_FILE"
