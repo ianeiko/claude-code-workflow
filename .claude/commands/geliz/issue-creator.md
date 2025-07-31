@@ -126,20 +126,10 @@ Execute issue creation:
    - Apply labels: "langgraph-workflow", "enhancement"
    - Store issue number for workflow tracking
 
-2. **Monitor for Approval:**
-   - Check issue comments for `@langgraph approve`
-   - Watch for `@langgraph reject` or `@langgraph halt`
-   - Update workflow state based on human response
-
-3. **State Management:**
+2. **State Management:**
    - Create workflow state file: `.claude/tasks/lg-workflow-{date}-{id}.md`
-   - Track issue number, approval status, and next steps
-   - Log all interactions for audit trail
-
-4. **Approval Response:**
-   - If approved: Signal development agent to proceed
-   - If rejected: Document reasons and pause workflow
-   - If halt requested: Gracefully stop and preserve state
+   - Track issue number and creation status
+   - Log issue creation for audit trail
 ```
 
 ## Quality Standards

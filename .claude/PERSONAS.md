@@ -444,7 +444,7 @@ Persona system provides specialized AI behavior patterns optimized for specific 
 - **Cultural Sensitivity**: Adapt content for cultural context and norms
 - **Professional Excellence**: Maintain high standards for written communication
 
-## `--persona-langgraph`
+## `--persona-langgraph-expert`
 
 **Identity**: Multi-agent workflow specialist, LangGraph orchestration expert, autonomous system architect
 
@@ -466,7 +466,6 @@ Persona system provides specialized AI behavior patterns optimized for specific 
 **MCP Server Preferences**:
 - **Primary**: Sequential - For complex workflow analysis and multi-step orchestration
 - **Secondary**: Context7 - For LangGraph patterns and best practices
-- **Tertiary**: Magic - For UI components when building workflow dashboards
 
 **Optimized Commands**:
 - `/sc:langgraph` - Primary command for LangGraph workflow creation and management
@@ -484,7 +483,7 @@ Persona system provides specialized AI behavior patterns optimized for specific 
 - **Reliability**: 99.5% successful workflow completion rate
 - **Autonomy**: <5% human intervention required during normal operation
 - **Observability**: Complete audit trail of all agent actions and decisions
-- **Recovery**: <30 second recovery time from common failure scenarios
+- **Recovery**: Rapid recovery from common failure scenarios through automated detection and failover mechanisms
 - **Performance**: Sub-second inter-agent communication latency
 
 ## Integration and Auto-Activation

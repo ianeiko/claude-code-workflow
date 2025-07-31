@@ -1,529 +1,464 @@
 # LangGraph Multi-Agent Workflow Examples
 
-Comprehensive examples demonstrating the LangGraph multi-agent development workflow for different types of features and complexity levels.
+Comprehensive examples demonstrating the LangGraph multi-agent development workflow for building autonomous AI agent systems.
 
 ## Quick Start Example
 
-### Basic Feature Implementation
+### Basic Agent Implementation
 
-**Scenario:** Add a user dashboard with basic analytics
+**Scenario:** Create a code review agent that analyzes pull requests and provides feedback
 
 ```bash
 # 1. Start the workflow
-/sc:langgraph "Create a user dashboard that displays basic analytics including page views, user count, and recent activity"
+/sc:langgraph "Create a code review agent that analyzes pull requests, identifies potential issues, and provides constructive feedback"
 
 # The workflow will:
 # - Analyze complexity (moderate)
 # - Create GitHub issue with detailed requirements
 # - Wait for human approval
-# - Implement the feature autonomously
-# - Run tests and fix failures
+# - Implement the agent autonomously
+# - Run tests and validate agent behavior
 # - Create PR with QA analysis
 # - Wait for human review
 ```
 
-**Expected Timeline:** 2-4 hours
 **Expected Complexity:** Moderate
-**Required Personas:** architect, frontend, backend, qa
+**Required Personas:** langgraph-expert, architect, analyzer, qa
 
 ## Detailed Workflow Examples
 
-### Example 1: Simple UI Component
+### Example 1: Simple Agent Node
 
-**Feature Request:** "Add a loading spinner component that can be reused across the application"
+**Feature Request:** "Add a validation agent node that checks code quality and returns a score"
 
 #### Phase 1: Orchestrator Analysis
 ```
 Complexity Assessment: Simple
-Required Personas: frontend, qa
-Estimated Duration: 1-2 hours
-Key Components: Reusable React component, CSS animations, prop interface
+Required Personas: langgraph-expert, analyzer
+Key Components: Single node agent, quality scoring logic, state management
 ```
 
 #### Phase 2: GitHub Issue Creation
 ```markdown
-# Feature: Reusable Loading Spinner Component
+# Feature: Code Quality Validation Agent Node
 
 ## 🎯 Feature Description
-Create a reusable loading spinner component that can be used across the application to indicate loading states.
+Create a LangGraph agent node that analyzes code quality and returns a numerical score with recommendations.
 
 ## 📋 Acceptance Criteria
-- [ ] Component accepts size prop (small, medium, large)
-- [ ] Component accepts color prop with theme integration
-- [ ] Component is accessible with proper ARIA labels
-- [ ] Component has smooth CSS animations
-- [ ] Component integrates with existing design system
-- [ ] Component includes TypeScript definitions
+- [ ] Agent node accepts code input and returns quality score (0-100)
+- [ ] Node provides specific improvement recommendations
+- [ ] Agent integrates with existing LangGraph workflow
+- [ ] Node handles errors gracefully and logs issues
+- [ ] Agent state is properly managed between invocations
+- [ ] Node includes comprehensive unit tests
 
 ## 🔧 Technical Requirements
 **Architecture:**
-- React functional component with TypeScript
-- CSS-in-JS styling with theme integration
-- Prop interface for customization
+- LangGraph StateGraph node implementation
+- Stateful agent with persistent memory
+- Tool integration for code analysis
 
-**Props Interface:**
-```typescript
-interface LoadingSpinnerProps {
-  size?: 'small' | 'medium' | 'large';
-  color?: string;
-  className?: string;
-  'aria-label'?: string;
-}
+**Node Interface:**
+```python
+class CodeQualityAgent:
+    def __init__(self, state: AgentState):
+        self.state = state
+        self.tools = [code_analyzer, quality_scorer]
+    
+    def invoke(self, input_data: dict) -> dict:
+        # Agent implementation
+        pass
 ```
 
 ## 🧪 Testing Requirements
-- [ ] Unit tests for all prop combinations
-- [ ] Accessibility testing with screen readers
-- [ ] Visual regression tests
-- [ ] Storybook stories for documentation
+- [ ] Unit tests for agent logic and scoring
+- [ ] Integration tests with LangGraph workflow
+- [ ] Edge case testing for malformed code
+- [ ] State persistence validation
 ```
 
 #### Phase 3: Development Implementation
 ```
-Branch: feature/lg-123-reusable-loading-spinner-component
+Branch: feature/lg-123-code-quality-validation-agent
 
 Files Created:
-- src/components/LoadingSpinner/LoadingSpinner.tsx
-- src/components/LoadingSpinner/LoadingSpinner.test.tsx
-- src/components/LoadingSpinner/LoadingSpinner.stories.tsx
-- src/components/LoadingSpinner/index.ts
+- src/agents/code_quality_agent.py
+- src/agents/tests/test_code_quality_agent.py
+- src/tools/code_analyzer.py
+- src/graphs/quality_workflow.py
 
 Implementation Details:
-- Uses CSS-in-JS with styled-components
-- Integrates with design system theme
-- Includes proper TypeScript definitions
-- Follows existing component patterns
+- LangGraph StateGraph integration
+- Agent state management with TypedDict
+- Tool calling for code analysis
+- Error handling and recovery
 ```
 
 #### Phase 4: QA Analysis Results
 ```
-Overall QA Score: 94/100
+Overall QA Score: 92/100
 
 Quality Breakdown:
-- Code Quality: 24/25 (Excellent component structure)
-- Test Coverage: 23/25 (92% coverage, missing edge case)
-- Performance: 25/25 (Lightweight, optimized animations)
-- Security: 22/25 (Minor: add prop validation)
+- Agent Logic: 24/25 (Excellent state management)
+- Test Coverage: 22/25 (88% coverage, missing error cases)
+- Performance: 25/25 (Efficient processing, proper caching)
+- Integration: 21/25 (Minor: improve error propagation)
 
 Recommendations:
-1. Add PropTypes for runtime validation
-2. Test spinner with very long loading times
-3. Consider adding animation pause for accessibility
+1. Add error handling for timeout scenarios
+2. Test agent with very large code inputs
+3. Improve state serialization for persistence
 ```
 
-#### Phase 5: Pull Request
-```markdown
-# Feature: Reusable Loading Spinner Component
+### Example 2: Complex Multi-Agent System
 
-## Summary
-Implements a flexible, accessible loading spinner component that integrates with the design system and can be used throughout the application.
-
-## Changes Made
-**Components:**
-- LoadingSpinner component with size and color props
-- TypeScript definitions and prop interfaces
-- Integration with design system theme
-
-**Tests:**
-- Unit tests with 92% coverage
-- Accessibility testing
-- Storybook stories for documentation
-
-## Testing
-1. Run `npm run storybook` to see component variants
-2. Test accessibility with screen reader
-3. Verify animations in different browsers
-
-## QA Score: 94/100
-- Excellent code quality and performance
-- Strong test coverage with minor gaps
-- Accessible and follows design system patterns
-
-Ready for review! 🚀
-```
-
-### Example 2: Complex Backend Feature
-
-**Feature Request:** "Implement user authentication system with JWT tokens, role-based access control, and password reset functionality"
+**Feature Request:** "Implement a multi-agent system for automated code refactoring with review and approval workflow"
 
 #### Phase 1: Orchestrator Analysis
 ```
 Complexity Assessment: Complex
-Required Personas: architect, backend, security, qa
-Estimated Duration: 6-8 hours
-Key Components: Authentication API, JWT handling, RBAC, email integration
-Security Considerations: High priority due to authentication nature
+Required Personas: langgraph-expert, architect, analyzer, security
+Key Components: Multiple specialized agents, workflow orchestration, human-in-the-loop
+Agent Architecture: Analyzer → Refactorer → Reviewer → Approver
 ```
 
 #### Phase 2: GitHub Issue Creation
 ```markdown
-# Feature: User Authentication System
+# Feature: Multi-Agent Code Refactoring System
 
 ## 🎯 Feature Description
-Implement a comprehensive user authentication system with JWT tokens, role-based access control, and password reset functionality.
+Implement a comprehensive multi-agent system that automatically analyzes code, proposes refactoring improvements, reviews changes, and manages approval workflow.
 
 ## 📋 Acceptance Criteria
-- [ ] User registration with email verification
-- [ ] User login with JWT token generation
-- [ ] Role-based access control (admin, user, moderator)
-- [ ] Password reset via email with secure tokens
-- [ ] JWT token refresh mechanism
-- [ ] Rate limiting on authentication endpoints
-- [ ] Secure password hashing with bcrypt
-- [ ] Session management and logout
+- [ ] Analysis agent identifies refactoring opportunities
+- [ ] Refactoring agent implements code improvements
+- [ ] Review agent validates proposed changes
+- [ ] Approval agent manages human-in-the-loop workflow
+- [ ] System maintains full audit trail of decisions
+- [ ] Agents communicate through shared state
+- [ ] Workflow supports rollback and recovery
+- [ ] System integrates with existing CI/CD pipeline
 
 ## 🔧 Technical Requirements
 **Architecture:**
-- RESTful API endpoints for auth operations
-- JWT token generation and validation middleware
-- Role-based permission system
-- Email service integration for verification/reset
+- StateGraph with 4 specialized agent nodes
+- Shared state management using TypedDict
+- Conditional workflow routing based on confidence scores
+- Human approval gates for significant changes
 
-**API Endpoints:**
-- POST /api/auth/register
-- POST /api/auth/login
-- POST /api/auth/logout
-- POST /api/auth/refresh
-- POST /api/auth/forgot-password
-- POST /api/auth/reset-password
-- GET /api/auth/verify-email/:token
+**Agent Specifications:**
+1. **AnalyzerAgent**: Code analysis and opportunity identification
+2. **RefactoringAgent**: Code modification and improvement implementation
+3. **ReviewAgent**: Change validation and quality assessment
+4. **ApprovalAgent**: Human workflow management and decision tracking
 
-**Database Models:**
-- User (id, email, password_hash, role, verified, created_at)
-- PasswordReset (token, user_id, expires_at)
-- RefreshToken (token, user_id, expires_at)
+**State Schema:**
+```python
+class RefactoringState(TypedDict):
+    code_input: str
+    analysis_results: List[RefactoringOpportunity]
+    proposed_changes: List[CodeChange]
+    review_feedback: ReviewResult
+    approval_status: ApprovalDecision
+    workflow_history: List[WorkflowStep]
+```
 
 ## 🔒 Security Requirements
-- [ ] Password hashing with bcrypt (minimum 12 rounds)
-- [ ] JWT tokens with 15-minute expiry
-- [ ] Refresh tokens with 7-day expiry
-- [ ] Rate limiting: 5 attempts per minute per IP
-- [ ] Input validation and sanitization
-- [ ] SQL injection prevention
-- [ ] OWASP security headers
+- [ ] Code analysis runs in sandboxed environment
+- [ ] No code execution during analysis phase
+- [ ] Secure state serialization and storage
+- [ ] Audit logging for all agent decisions
+- [ ] Access control for approval workflows
 
 ## 🧪 Testing Requirements
-- [ ] Unit tests for authentication logic
-- [ ] Integration tests for API endpoints
-- [ ] Security tests for common vulnerabilities
-- [ ] Load tests for authentication performance
+- [ ] Unit tests for each agent implementation
+- [ ] Integration tests for multi-agent workflows
+- [ ] End-to-end tests for complete refactoring cycles
+- [ ] Performance tests for large codebases
+- [ ] Security tests for malicious code inputs
 ```
 
-#### Phase 3: Multi-Persona Development
+#### Phase 3: Multi-Agent Implementation
 
-**Architect Implementation:**
-```
-Architecture Plan:
-1. Database schema design and migrations
-2. Middleware structure for JWT validation
-3. Service layer separation (AuthService, EmailService)
-4. Error handling and validation strategy
-5. Security implementation roadmap
+**LangGraph-Expert Implementation:**
+```python
+from langgraph.graph import StateGraph, END
+from typing import TypedDict, List
+
+class RefactoringState(TypedDict):
+    code_input: str
+    analysis_results: List[dict]
+    proposed_changes: List[dict]
+    review_feedback: dict
+    approval_status: str
+    confidence_score: float
+
+def create_refactoring_workflow():
+    workflow = StateGraph(RefactoringState)
+    
+    # Add agent nodes
+    workflow.add_node("analyzer", AnalyzerAgent())
+    workflow.add_node("refactorer", RefactoringAgent())
+    workflow.add_node("reviewer", ReviewAgent())
+    workflow.add_node("approver", ApprovalAgent())
+    
+    # Define workflow edges
+    workflow.add_edge("analyzer", "refactorer")
+    workflow.add_conditional_edges(
+        "refactorer",
+        lambda state: "reviewer" if state["confidence_score"] > 0.8 else "approver",
+        {"reviewer": "reviewer", "approver": "approver"}
+    )
+    workflow.add_conditional_edges(
+        "reviewer",
+        lambda state: END if state["review_feedback"]["approved"] else "refactorer"
+    )
+    
+    workflow.set_entry_point("analyzer")
+    return workflow.compile()
 ```
 
-**Backend Implementation:**
-```
-Files Created:
-- src/models/User.js
-- src/models/PasswordReset.js
-- src/services/AuthService.js
-- src/services/EmailService.js
-- src/middleware/auth.js
-- src/middleware/rateLimiting.js
-- src/routes/auth.js
-- src/utils/tokenUtils.js
+**Agent Implementations:**
+```python
+class AnalyzerAgent:
+    def __init__(self):
+        self.tools = [code_complexity_analyzer, pattern_detector, smell_detector]
+    
+    def __call__(self, state: RefactoringState) -> RefactoringState:
+        analysis_results = []
+        for tool in self.tools:
+            result = tool.analyze(state["code_input"])
+            analysis_results.extend(result.opportunities)
+        
+        return {**state, "analysis_results": analysis_results}
 
-Key Features:
-- Comprehensive authentication endpoints
-- JWT token generation and validation
-- Password hashing with bcrypt
-- Email integration for verification
-```
-
-**Security Implementation:**
-```
-Security Measures:
-- Input validation with Joi schemas
-- Rate limiting with express-rate-limit
-- Helmet.js for security headers
-- JWT secret rotation capability
-- Password complexity requirements
-- Secure token generation for resets
+class RefactoringAgent:
+    def __init__(self):
+        self.tools = [code_transformer, pattern_applier, optimizer]
+    
+    def __call__(self, state: RefactoringState) -> RefactoringState:
+        proposed_changes = []
+        confidence_scores = []
+        
+        for opportunity in state["analysis_results"]:
+            change = self.apply_refactoring(opportunity, state["code_input"])
+            proposed_changes.append(change)
+            confidence_scores.append(change.confidence)
+        
+        avg_confidence = sum(confidence_scores) / len(confidence_scores)
+        
+        return {
+            **state, 
+            "proposed_changes": proposed_changes,
+            "confidence_score": avg_confidence
+        }
 ```
 
 #### Phase 4: QA Analysis Results
 ```
-Overall QA Score: 91/100
+Overall QA Score: 89/100
 
 Quality Breakdown:
-- Code Quality: 23/25 (Well-structured, follows patterns)
-- Test Coverage: 22/25 (88% coverage, need more edge cases)
-- Performance: 23/25 (Good performance, consider caching)
-- Security: 23/25 (Strong security, minor header improvements)
+- Agent Architecture: 23/25 (Well-designed state management)
+- Workflow Logic: 22/25 (Good conditional routing, minor edge cases)
+- Integration: 24/25 (Excellent LangGraph integration)
+- Testing: 20/25 (Need more complex scenario tests)
 
-Security Assessment:
-- ✅ Proper password hashing implemented
-- ✅ JWT tokens configured securely
-- ✅ Rate limiting active on all endpoints
-- ✅ Input validation comprehensive
-- ⚠️ Consider adding CSRF protection
-- ⚠️ Add security headers for admin endpoints
+Multi-Agent Validation:
+- ✅ State properly shared between agents
+- ✅ Conditional workflow routing working correctly
+- ✅ Human-in-the-loop integration functional
+- ✅ Error recovery and rollback mechanisms active
+- ⚠️ Performance optimization needed for large codebases
+- ⚠️ Add monitoring for agent decision quality
 
-Performance Recommendations:
-- Implement Redis caching for session data
-- Add database indexing on email lookups
-- Consider connection pooling optimization
-
-Test Coverage Gaps:
-- Edge cases for concurrent password resets
-- Token expiry boundary conditions
-- Rate limiting behavior under load
+Recommendations:
+- Implement caching for repeated analysis patterns
+- Add metrics collection for agent performance
+- Consider parallel execution for independent refactoring tasks
 ```
 
-### Example 3: Full-Stack Feature with E2E Testing
+### Example 3: LangGraph Integration Patterns
 
-**Feature Request:** "Create a real-time chat system with message history, user presence, and file sharing"
+**Feature Request:** "Create a documentation agent that automatically generates and maintains API documentation"
 
-#### Phase 1: Orchestrator Analysis
-```
-Complexity Assessment: Complex
-Required Personas: architect, frontend, backend, security, performance, qa
-Estimated Duration: 12-16 hours
-Key Components: WebSocket integration, real-time UI, file handling, database optimization
-Special Considerations: Performance critical, requires E2E testing
-```
+#### Key LangGraph Building Blocks
 
-#### Phase 2: Implementation Highlights
+**1. State Management:**
+```python
+from typing import TypedDict, List, Optional
 
-**Frontend (React + WebSocket):**
-```typescript
-// Real-time chat component with optimistic updates
-const ChatRoom: React.FC<ChatRoomProps> = ({ roomId }) => {
-  const { messages, sendMessage, users } = useWebSocket(roomId);
-  const { uploadFile } = useFileUpload();
-  
-  return (
-    <div className="chat-room">
-      <UserPresence users={users} />
-      <MessageList messages={messages} />
-      <MessageInput onSend={sendMessage} onFileUpload={uploadFile} />
-    </div>
-  );
-};
+class DocumentationState(TypedDict):
+    source_code: str
+    api_endpoints: List[dict]
+    documentation: str
+    review_status: str
+    update_history: List[dict]
 ```
 
-**Backend (Node.js + Socket.io):**
-```javascript
-// Real-time message handling with persistence
-io.on('connection', (socket) => {
-  socket.on('join-room', async (roomId) => {
-    await socket.join(roomId);
-    const messages = await MessageService.getRecentMessages(roomId);
-    socket.emit('message-history', messages);
-  });
-  
-  socket.on('send-message', async (data) => {
-    const message = await MessageService.createMessage(data);
-    io.to(data.roomId).emit('new-message', message);
-  });
-});
+**2. Agent Node Implementation:**
+```python
+from langgraph.graph import StateGraph
+
+class DocumentationAgent:
+    def __init__(self, name: str, tools: List):
+        self.name = name
+        self.tools = tools
+    
+    def __call__(self, state: DocumentationState) -> DocumentationState:
+        # Agent processing logic
+        result = self.process_with_tools(state)
+        return {**state, **result}
+    
+    def process_with_tools(self, state):
+        # Tool calling and processing
+        pass
 ```
 
-#### Phase 3: QA Analysis with Playwright Integration
-```
-QA Score: 87/100
+**3. Workflow Orchestration:**
+```python
+def create_documentation_workflow():
+    workflow = StateGraph(DocumentationState)
+    
+    # Add specialized agent nodes
+    workflow.add_node("code_analyzer", CodeAnalyzerAgent())
+    workflow.add_node("doc_generator", DocumentationGeneratorAgent())
+    workflow.add_node("quality_checker", QualityCheckerAgent())
+    workflow.add_node("reviewer", ReviewerAgent())
+    
+    # Define processing flow
+    workflow.set_entry_point("code_analyzer")
+    workflow.add_edge("code_analyzer", "doc_generator")
+    workflow.add_edge("doc_generator", "quality_checker")
+    
+    # Conditional routing based on quality score
+    workflow.add_conditional_edges(
+        "quality_checker",
+        route_based_on_quality,
+        {
+            "high_quality": "reviewer",
+            "needs_improvement": "doc_generator",
+            "requires_human": "reviewer"
+        }
+    )
+    
+    return workflow.compile()
 
-Playwright E2E Test Scenarios:
-1. ✅ User joins chat room and sees message history
-2. ✅ Real-time message sending and receiving
-3. ✅ File upload and sharing functionality
-4. ✅ User presence indicators work correctly
-5. ✅ Mobile responsive behavior validated
-6. ⚠️ Need tests for connection interruption handling
-
-Critical E2E Tests Added:
-- Multi-user chat simulation
-- File upload with various formats
-- Network interruption recovery
-- Mobile touch interactions
-- Cross-browser compatibility (Chrome, Firefox, Safari)
-
-Performance Validation:
-- Message load time: <200ms for 100 messages
-- File upload: <5s for 10MB files
-- Memory usage: Stable under 50MB for 1000 messages
-- WebSocket connection: Stable over 4-hour test
-```
-
-## Human Interaction Examples
-
-### Approval Process Examples
-
-#### Issue Approval
-```
-Human Reviewer Comment:
-"@langgraph approve - This looks comprehensive. Please ensure the password reset tokens expire within 24 hours and add rate limiting to prevent abuse."
-
-Workflow Response:
-✅ Development approved! Adding security requirements to implementation plan:
-- Password reset token expiry: 24 hours
-- Additional rate limiting on reset endpoints
-- Enhanced security testing for abuse prevention
-
-Proceeding to development phase...
+def route_based_on_quality(state: DocumentationState) -> str:
+    quality_score = state.get("quality_score", 0)
+    if quality_score >= 0.9:
+        return "high_quality"
+    elif quality_score >= 0.7:
+        return "needs_improvement"
+    else:
+        return "requires_human"
 ```
 
-#### PR Review with Changes Requested
-```
-Human Reviewer Comment:
-"The implementation looks good overall, but I'd like to see:
-1. More comprehensive error handling in the auth middleware  
-2. Additional unit tests for edge cases
-3. Documentation for the JWT token structure
+**4. Tool Integration:**
+```python
+from langchain.tools import BaseTool
 
-Please address these before merge."
+class APIExtractorTool(BaseTool):
+    name = "api_extractor"
+    description = "Extract API endpoints from source code"
+    
+    def _run(self, source_code: str) -> List[dict]:
+        # Implementation for API extraction
+        endpoints = self.parse_api_endpoints(source_code)
+        return endpoints
 
-Workflow Response:
-📝 Change requests received. Coordinating with development agent to address:
-
-1. ✅ Enhanced error handling in auth middleware
-2. ✅ Added 15 new unit tests for edge cases  
-3. ✅ Created JWT token documentation with examples
-
-Updated PR with requested changes. Ready for re-review!
-```
-
-### Emergency Stop Example
-```
-Human Comment on Issue:
-"@langgraph halt - We just discovered a security vulnerability in our current auth system. Please pause this work while we assess the impact."
-
-Workflow Response:
-🛑 Emergency stop activated!
-
-Workflow Status:
-- Current Phase: Development (75% complete)
-- Work Preserved: All progress saved to branch feature/lg-456-auth-system
-- State File: .claude/tasks/lg-20240131-abc123.md
-
-The workflow has been safely paused. All work is preserved and can be resumed once security assessment is complete.
-
-To resume: Update the workflow state and restart from the saved checkpoint.
+class DocumentationGeneratorTool(BaseTool):
+    name = "doc_generator"
+    description = "Generate documentation from API specifications"
+    
+    def _run(self, api_specs: List[dict]) -> str:
+        # Implementation for documentation generation
+        documentation = self.create_documentation(api_specs)
+        return documentation
 ```
 
-## Error Recovery Examples
+## Agent System Patterns
 
-### Test Failure During Development
-```
-Error Scenario: 
-Integration tests failing due to database connection timeout
-
-Automatic Recovery:
-1. ✅ Detected test failures (3 failing, 15 passing)
-2. ✅ Analyzed failure patterns (all database-related)
-3. ✅ Implemented connection pool optimization
-4. ✅ Added retry logic for database operations
-5. ✅ Re-ran tests: All 18 passing ✅
-
-Recovery Time: 12 minutes
-No human intervention required
+### 1. Linear Pipeline Pattern
+```python
+# Sequential processing with checkpoints
+workflow.add_edge("input_validator", "processor")
+workflow.add_edge("processor", "output_formatter")
+workflow.add_edge("output_formatter", "quality_checker")
 ```
 
-### GitHub API Rate Limit
-```
-Error Scenario:
-GitHub API rate limit exceeded during PR creation
-
-Automatic Recovery:
-1. ⚠️ GitHub API rate limit detected (10 requests remaining)
-2. 🕒 Waiting for rate limit reset (23 minutes)
-3. ✅ Rate limit reset, resuming operations
-4. ✅ PR created successfully: #789
-
-Total Delay: 25 minutes
-Workflow continued automatically
+### 2. Conditional Branching Pattern
+```python
+# Dynamic routing based on conditions
+workflow.add_conditional_edges(
+    "decision_node",
+    lambda state: "path_a" if condition(state) else "path_b",
+    {"path_a": "node_a", "path_b": "node_b"}
+)
 ```
 
-## Performance Benchmarks
-
-### Workflow Execution Times
-
-| Complexity | Average Duration | Success Rate | Human Intervention |
-|------------|------------------|--------------|-------------------|
-| Simple     | 1.5 hours       | 96%          | 5%                |
-| Moderate   | 3.2 hours       | 93%          | 8%                |
-| Complex    | 7.8 hours       | 89%          | 12%               |
-
-### Quality Metrics
-
-| Metric | Target | Average Achieved | Best Case |
-|--------|--------|------------------|-----------|
-| QA Score | >85/100 | 89.2/100 | 96/100 |
-| Test Coverage | >80% | 87.3% | 95% |
-| Time to PR | <4 hours | 3.1 hours | 45 minutes |
-| First-time Success | >85% | 91.2% | N/A |
-
-## Best Practices Learned
-
-### For Simple Features (1-4 hours)
-- ✅ Focus on single component or small API changes
-- ✅ Prioritize test coverage and documentation
-- ✅ Use existing patterns and conventions
-- ✅ Leverage design system components
-
-### For Moderate Features (4-8 hours)
-- ✅ Break into clear phases with checkpoints
-- ✅ Plan integration points carefully
-- ✅ Include performance considerations early
-- ✅ Add comprehensive error handling
-
-### For Complex Features (8+ hours)
-- ✅ Involve architect persona for system design
-- ✅ Plan for multiple personas and coordination
-- ✅ Include security review for sensitive features
-- ✅ Plan E2E testing with Playwright integration
-- ✅ Consider breaking into multiple workflows
-
-## Troubleshooting Guide
-
-### Common Issues and Solutions
-
-**Issue:** Workflow stuck in "waiting_approval" phase
-**Solution:** Check GitHub issue for approval comment format. Must be exactly `@langgraph approve`
-
-**Issue:** Tests failing during development phase
-**Solution:** Workflow should auto-fix test failures. If persistent, check error logs in state file
-
-**Issue:** QA score consistently low (<80)
-**Solution:** Review QA recommendations and adjust implementation patterns
-
-**Issue:** Long execution times
-**Solution:** Consider breaking complex features into multiple simpler workflows
-
-### Recovery Commands
-
-```bash
-# Check workflow status
-/geliz:state query --status active
-
-# Resume interrupted workflow  
-/geliz:orchestrator resume lg-20240131-abc123
-
-# Manual GitHub sync
-/geliz:github sync-state lg-20240131-abc123
-
-# Emergency workflow reset
-/geliz:state reset lg-20240131-abc123 --preserve-artifacts
+### 3. Loop with Exit Pattern
+```python
+# Iterative processing with termination
+workflow.add_conditional_edges(
+    "processor",
+    lambda state: "processor" if needs_retry(state) else END,
+    {"continue": "processor"}
+)
 ```
 
-## Next Steps
+### 4. Human-in-the-Loop Pattern
+```python
+# Strategic approval points
+workflow.add_node("human_review", HumanReviewAgent())
+workflow.add_conditional_edges(
+    "human_review",
+    lambda state: "approved" if state["human_decision"] == "approve" else "rejected",
+    {"approved": "continue_workflow", "rejected": END}
+)
+```
 
-Once you're comfortable with the basic workflow:
+## Best Practices for LangGraph Agents
 
-1. **Customize Personas:** Adapt personas to your specific project needs
-2. **Extend QA Rules:** Add project-specific quality gates and metrics
-3. **Integrate CI/CD:** Connect with your existing development pipeline  
-4. **Monitor Performance:** Track workflow metrics and optimize bottlenecks
-5. **Train Team:** Ensure team understands approval processes and emergency controls
+### Agent Design Principles
+- **Single Responsibility**: Each agent handles one specific task
+- **Stateful Operations**: Use shared state for agent communication
+- **Tool Integration**: Leverage existing tools through structured interfaces
+- **Error Resilience**: Implement graceful error handling and recovery
+- **Observable Behavior**: Include logging and monitoring for agent actions
 
-The LangGraph multi-agent workflow is designed to learn and improve over time. Each completed workflow contributes to better decision-making and more accurate estimates for future features.
+### Workflow Orchestration
+- **Clear Entry Points**: Define obvious workflow starting points
+- **Conditional Logic**: Use state-based routing for dynamic workflows
+- **Exit Strategies**: Always provide clear termination conditions
+- **State Validation**: Ensure state consistency between agent transitions
+- **Checkpoint Management**: Enable workflow pause and resume capabilities
+
+### Performance Optimization
+- **State Serialization**: Efficient state storage and retrieval
+- **Tool Caching**: Cache expensive tool operations
+- **Parallel Execution**: Run independent agents concurrently when possible
+- **Resource Management**: Monitor and limit resource usage per agent
+- **Incremental Processing**: Break large tasks into manageable chunks
+
+## Integration with SuperClaude Framework
+
+### Persona Integration
+- **langgraph-expert**: Primary agent design and workflow orchestration
+- **architect**: System design and agent interaction patterns
+- **analyzer**: Agent performance analysis and optimization
+- **qa**: Agent testing and validation workflows
+
+### MCP Server Coordination
+- **Sequential**: Complex multi-step agent logic and analysis
+- **Context7**: LangGraph patterns and best practices
+- **Tool Integration**: Seamless tool calling within agent workflows
+
+### Quality Standards
+- **Reliability**: 99.5% successful agent execution rate
+- **Autonomy**: Minimal human intervention required
+- **Observability**: Complete audit trail of agent decisions
+- **Performance**: Efficient resource usage and response times
+
+The LangGraph multi-agent workflow enables building sophisticated autonomous systems that can handle complex tasks while maintaining human oversight and control where needed.
