@@ -9,177 +9,148 @@ mcp-servers: [sequential, context7]
 allowed-tools: [Read, Write, Edit, MultiEdit, Bash, Glob, Grep, TodoWrite, Task]
 ---
 
-# /sc:langgraph - Multi-Agent Development Workflow
+# /sc:langgraph - LangGraph PRD Generation
 
 ## Purpose
-Create and manage autonomous multi-agent development workflows using LangGraph for complete feature development lifecycle from description to merged PR.
+Generate Product Requirements Document (PRD) for planned work using the langgraph-expert persona and LangGraph workflows.
 
 ## Usage
 ```
-/sc:langgraph [feature-description] [--mode development|review|status] [--workflow-type standard|experimental]
+/sc:langgraph [feature-description] [--output docs/prd.md] [--format standard|detailed]
 ```
 
 ## Arguments
-- `feature-description` - Natural language description of the feature to implement
-- `--mode` - Workflow execution mode:
-  - `development` (default): Full development workflow from issue to PR
-  - `review`: Review and analyze existing workflow state
-  - `status`: Check status of running workflows
-- `--workflow-type` - Workflow variant:
-  - `standard` (default): Standard development workflow
-  - `experimental`: Enable experimental workflow features
-- `--persist` - Enable cross-session workflow persistence
-- `--human-gates` - Configure human approval gates (default: issue approval, PR review)
-- `--auto-fix` - Enable automatic test fixing during development
-- `--qa-depth` - QA analysis depth (basic|comprehensive)
+- `feature-description` - Natural language description of the planned work or feature
+- `--output` - Output file path (default: docs/prd.md)
+- `--format` - PRD format:
+  - `standard` (default): Standard PRD structure with essential sections
+  - `detailed`: Comprehensive PRD with extended analysis
 
 ## Workflow Architecture
 
 ### Core Flow
 ```
-Feature Request → Issue Creation → Human Approval → Development → PR Creation → QA Review → Human Review → Merge
+Feature Description → Analysis → PRD Generation → Documentation Output
 ```
 
-### Agent Nodes
-1. **Orchestrator Node**: Central coordination and state management
-2. **Issue Creator Node**: GitHub issue creation with analysis
-3. **Development Node**: Code implementation with testing
-4. **QA Node**: Quality assurance and test coverage analysis
-5. **Integration Node**: PR creation and CI/CD coordination
+### Processing Stages
+1. **Requirements Analysis**: Extract and analyze feature requirements
+2. **Technical Planning**: Define technical approach and architecture considerations
+3. **PRD Generation**: Create structured Product Requirements Document
+4. **Output Formatting**: Format and save to specified location
 
-### Human Gates
-- **Issue Approval**: Comment `@langgraph approve` on created issue
-- **PR Review**: Standard GitHub review process with QA recommendations
-- **Emergency Stop**: Comment `@langgraph halt` to pause workflow
+## Execution Process
 
-## Execution Modes
+### Standard Format
+1. **Feature Analysis**: Analyze the provided feature description
+2. **Requirements Extraction**: Identify core requirements and acceptance criteria
+3. **Technical Considerations**: Outline technical approach and constraints
+4. **PRD Creation**: Generate structured PRD document
+5. **File Output**: Save to docs/prd.md or specified path
 
-### Development Mode (Default)
-Complete autonomous development workflow:
-1. **Analysis Phase**: Feature analysis and requirement extraction
-2. **Issue Creation**: GitHub issue with detailed specifications
-3. **Wait for Approval**: Human gate requiring `@langgraph approve` comment
-4. **Development Phase**: Autonomous implementation with testing
-5. **PR Creation**: Pull request with QA analysis and recommendations
-6. **Quality Gate**: Final human review and merge
+### Detailed Format
+Enhanced PRD generation with additional sections:
+- **Stakeholder Analysis**: Identify key stakeholders and their needs
+- **Risk Assessment**: Potential risks and mitigation strategies
+- **Implementation Timeline**: High-level timeline and milestones
+- **Success Metrics**: Measurable success criteria
 
-### Review Mode
-Analyze and review workflow execution:
-- Current workflow status and progress
-- Agent decision history and rationale
-- Quality metrics and test coverage analysis
-- Performance recommendations and optimizations
+## LangGraph Expert Integration
 
-### Status Mode
-Monitor active workflows:
-- List all active workflows with status
-- Show bottlenecks and waiting states
-- Display estimated completion times
-- Provide intervention recommendations
-
-## Integration Features
-
-### GitHub Integration
-- **Branch Management**: Auto-create `feature/lg-{issue-number}-{kebab-case-title}`
-- **Issue Templates**: Structured issue creation with acceptance criteria
-- **PR Templates**: Automated PR with QA checklist and test coverage
-- **Labels**: Auto-apply `langgraph-workflow` tag
-- **Comments**: Bot interactions for workflow progression
+### Persona Activation
+- **Primary Persona**: langgraph-expert (assumed ready for usage)
+- **Supporting Analysis**: Architect persona for technical considerations
+- **Documentation**: Scribe persona for professional PRD formatting
 
 ### SuperClaude Integration
-- **Persona Orchestration**: Dynamic persona activation based on task type
-- **MCP Coordination**: Sequential for orchestration, Context7 for patterns
-- **Task Persistence**: Integration with `/sc:task` for cross-session state
-- **Command Chaining**: Seamless integration with other SuperClaude commands
+- **MCP Coordination**: Sequential for structured analysis, Context7 for documentation patterns
+- **Tool Integration**: Read, Write, Edit for file operations and PRD creation
+- **Command Chaining**: Compatible with other SuperClaude documentation commands
 
-### CI/CD Integration
-- **Test Automation**: Integration with GitHub Actions and test suites
-- **Quality Gates**: Automated quality checks and coverage analysis
-- **Deployment**: Optional deployment pipeline integration
-- **Monitoring**: Workflow execution monitoring and alerting
+### Output Features
+- **Structured Format**: Professional PRD template with consistent sections
+- **Markdown Output**: Clean markdown formatting for documentation systems
+- **File Management**: Automatic directory creation and file placement
 
-## State Management
+## PRD Structure
 
-### Workflow State
-Persistent state stored in `.claude/tasks/langgraph-{workflow-id}.md`:
-```yaml
-workflow_id: lg-2024-001
-status: development
-current_node: development
-feature_description: "User authentication system"
-github_issue: 123
-branch_name: "feature/lg-123-user-authentication-system"
-agents:
-  orchestrator: active
-  development: in_progress
-  qa: pending
-human_gates:
-  issue_approval: completed
-  pr_review: pending
+### Standard PRD Template
+Generated PRD includes the following sections:
+```markdown
+# Feature Name
+
+## Overview
+Brief description and objectives
+
+## Requirements
+- Functional requirements
+- Non-functional requirements
+- Acceptance criteria
+
+## Technical Approach
+- Architecture considerations
+- Technology choices
+- Implementation notes
+
+## Success Criteria
+- Measurable outcomes
+- Validation methods
 ```
 
-### Agent Communication
-- **Shared Context**: LangGraph state dictionary for inter-agent communication
-- **Event System**: Async event propagation between agents
-- **State Snapshots**: Regular state persistence for recovery
-- **Audit Trail**: Complete log of agent actions and decisions
+### Detailed PRD Template
+Enhanced version includes additional sections:
+- **Stakeholder Analysis**
+- **Risk Assessment**
+- **Implementation Timeline**
+- **Resource Requirements**
+- **Dependencies and Constraints**
 
-### Error Recovery
-- **Automatic Retry**: Configurable retry logic for transient failures
-- **State Rollback**: Ability to rollback to previous stable state
-- **Human Escalation**: Automatic escalation on critical failures
-- **Graceful Degradation**: Continue workflow with reduced functionality
+## Quality Standards
 
-## Quality Assurance
+### PRD Quality Criteria
+- **Completeness**: All required sections included and populated
+- **Clarity**: Clear, unambiguous language throughout
+- **Feasibility**: Technically achievable requirements
+- **Measurability**: Quantifiable success criteria
+- **Consistency**: Consistent formatting and structure
 
-### QA Agent Capabilities
-- **Test Coverage Analysis**: Identify missing test coverage areas
-- **Code Quality Review**: Static analysis and quality metrics
-- **Performance Assessment**: Identify potential performance issues
-- **Security Review**: Basic security vulnerability assessment
-- **Integration Testing**: Playwright-based E2E test recommendations
-
-### Quality Gates
-- **Code Standards**: Enforce coding standards and conventions
-- **Test Requirements**: Minimum test coverage thresholds
-- **Performance Budgets**: Response time and resource usage limits
-- **Security Checks**: Basic security vulnerability scanning
-- **Documentation**: Ensure adequate documentation coverage
+### Validation Process
+- **Content Review**: Verify all sections are complete and accurate
+- **Technical Validation**: Ensure technical approach is sound
+- **Format Check**: Confirm proper markdown formatting
+- **File Placement**: Verify correct output location
 
 ## Usage Examples
 
-### Start Development Workflow
+### Standard PRD Generation
 ```bash
-/sc:langgraph "Implement user dashboard with analytics widgets" --mode development --auto-fix
+/sc:langgraph "Implement user dashboard with analytics widgets"
 ```
 
-### Review Workflow Status
+### Custom Output Location
 ```bash
-/sc:langgraph --mode status --workflow-id lg-2024-001
+/sc:langgraph "Add OAuth integration" --output requirements/oauth-prd.md
 ```
 
-### Advanced Configuration
+### Detailed PRD Format
 ```bash
-/sc:langgraph "Add OAuth integration" --workflow-type experimental --qa-depth comprehensive --persist
+/sc:langgraph "Real-time chat system" --format detailed --output docs/chat-prd.md
 ```
 
 ## Performance Targets
-- **Workflow Creation**: <5 seconds from description to GitHub issue
-- **Agent Response**: <2 seconds for inter-agent communication
-- **State Persistence**: <1 second for state updates
-- **Recovery Time**: <30 seconds from failure to resumed operation
-- **End-to-End**: <2 hours for typical feature (varies by complexity)
+- **Analysis Time**: <30 seconds for feature analysis
+- **PRD Generation**: <60 seconds for standard format
+- **File Output**: <5 seconds for document creation and save
+- **Total Process**: <2 minutes from input to completed PRD
 
 ## Success Metrics
-- **Completion Rate**: >95% successful workflow completion
-- **Quality Score**: >90% QA approval rate
-- **Time to PR**: <4 hours average for standard features
-- **Human Intervention**: <10% workflows requiring manual intervention
-- **Test Coverage**: >80% code coverage on generated code
+- **PRD Completeness**: >95% of required sections populated
+- **Technical Accuracy**: >90% of technical approaches validated as feasible
+- **Format Consistency**: 100% proper markdown formatting
+- **Output Success**: >98% successful file creation and placement
 
 ## Claude Code Integration
-- **Wave System**: Multi-stage execution with progressive enhancement
-- **Hook Integration**: Real-time workflow monitoring and optimization
-- **Tool Coordination**: Intelligent batching and parallel execution
-- **Context Retention**: Maintain context across workflow stages
-- **Evidence Collection**: Comprehensive audit trail and metrics
+- **Persona System**: Automatic activation of langgraph-expert persona
+- **MCP Coordination**: Sequential for analysis, Context7 for documentation patterns
+- **Tool Integration**: Seamless file operations and document generation
+- **Command Compatibility**: Works with other SuperClaude documentation commands
