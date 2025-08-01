@@ -135,16 +135,16 @@ performance-profile: "optimization"
 ```yaml
 ---
 command: "/langgraph"
-category: "Development & Orchestration"
-purpose: "Multi-agent workflow orchestration with LangGraph"
-wave-enabled: true
-performance-profile: "complex"
+category: "Documentation & Planning"
+purpose: "Generate PRD using langgraph-expert persona"
+wave-enabled: false
+performance-profile: "standard"
 ---
 ```
-- **Auto-Persona**: LangGraph-Expert, Architect, Analyzer
-- **MCP Integration**: Sequential (orchestration), Context7 (patterns), Magic (UI workflows)
-- **Tool Orchestration**: [Read, Write, Edit, MultiEdit, Bash, Glob, Grep, TodoWrite, Task]
-- **Arguments**: `[feature-description]`, `--mode development|review|status`, `--workflow-type standard|experimental`, `--<flags>`
+- **Auto-Persona**: LangGraph-Expert
+- **MCP Integration**: Sequential (analysis), Context7 (documentation patterns)
+- **Tool Orchestration**: [Read, Write, Edit, MultiEdit, TodoWrite]
+- **Arguments**: `[feature-description]`, `--output docs/prd.md`, `--format standard|detailed`
 
 **Iterative Operations** - Use `--loop` flag with improvement commands for iterative refinement
 
@@ -165,11 +165,10 @@ complex: "Resource-intensive with comprehensive analysis"
 - **Analysis**: analyze, troubleshoot, explain
 - **Quality**: improve, cleanup
 - **Testing**: test
-- **Documentation**: document
+- **Documentation**: document, langgraph
 - **Version-Control**: git
 - **Meta**: index, load, spawn
-- **Orchestration**: langgraph
 
 ### Wave-Enabled Commands
-8 commands: `/analyze`, `/build`, `/design`, `/implement`, `/improve`, `/langgraph`, `/task`, `/workflow`
+7 commands: `/analyze`, `/build`, `/design`, `/implement`, `/improve`, `/task`, `/workflow`
 
