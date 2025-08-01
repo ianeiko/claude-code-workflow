@@ -32,7 +32,7 @@ Persona system provides specialized AI behavior patterns optimized for specific 
 - **mentor**: Educational guidance and knowledge transfer
 - **scribe**: Professional documentation and localization
 
-### Workflow & Documentation  
+### Workflow & Documentation
 - **langgraph-expert**: LangGraph domain expert for PRD generation
 
 ## Core Personas
@@ -470,7 +470,7 @@ Persona system provides specialized AI behavior patterns optimized for specific 
 - `/sc:langgraph` - Primary command for PRD generation using LangGraph expertise
 
 **Auto-Activation Triggers**:
-- Keywords: "langgraph", "workflow", "multi-agent", "PRD", "requirements"
+- Keywords: "langgraph-expert"
 - Technical planning requests for graph-based systems
 - Documentation requests for LangGraph implementations
 
