@@ -26,6 +26,29 @@ Create and maintain comprehensive project documentation, indexes, and knowledge 
 4. Create navigation structure and cross-references
 5. Output formatted documentation with proper organization
 
+## LangGraph Multi-Agent Commands
+
+### Core Workflow Command
+- `/sc:langgraph` - Main multi-agent development workflow orchestration
+
+### Sub-Agent Commands (geliz/* subfolder)
+- `/geliz:workflow` - Complete feature development lifecycle orchestration
+- `/geliz:issue-creator` - GitHub issue creation and approval monitoring
+- `/geliz:dev-agent` - Autonomous feature implementation with testing
+- `/geliz:qa-agent` - Comprehensive quality assurance and testing analysis
+- `/geliz:orchestrator` - Central workflow coordination and state management
+- `/geliz:github` - GitHub integration operations (issues, PRs, branches)
+- `/geliz:state` - Workflow state management and cross-session continuity
+
+### Human Gates & Approval Process
+- **Issue Approval:** Comment `@langgraph approve` to start development
+- **PR Review:** Standard GitHub review process with QA recommendations
+- **Emergency Stop:** Comment `@langgraph halt` to pause workflow
+
+### Branch Naming Convention
+- **Pattern:** `feature/lg-{issue-number}-{kebab-case-title}`
+- **Labels:** `langgraph-workflow`, `enhancement`
+
 ## Claude Code Integration
 - Uses Glob for systematic file discovery
 - Leverages Grep for extracting documentation patterns

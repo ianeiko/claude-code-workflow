@@ -131,6 +131,21 @@ performance-profile: "optimization"
 
 **`/load [path] [flags]`** - Project context loading | Auto-Persona: Analyzer, Architect, Scribe | MCP: All servers
 
+**`/langgraph [feature-description] [flags]`**
+```yaml
+---
+command: "/langgraph"
+category: "Documentation & Planning"
+purpose: "Generate PRD using langgraph-expert persona"
+wave-enabled: false
+performance-profile: "standard"
+---
+```
+- **Auto-Persona**: LangGraph-Expert
+- **MCP Integration**: Sequential (analysis), Context7 (documentation patterns)
+- **Tool Orchestration**: [Read, Write, Edit, MultiEdit, TodoWrite]
+- **Arguments**: `[feature-description]`, `--output docs/prd.md`, `--format standard|detailed`
+
 **Iterative Operations** - Use `--loop` flag with improvement commands for iterative refinement
 
 **`/spawn [mode] [flags]`** - Task orchestration | Auto-Persona: Analyzer, Architect, DevOps | MCP: All servers
@@ -150,7 +165,7 @@ complex: "Resource-intensive with comprehensive analysis"
 - **Analysis**: analyze, troubleshoot, explain
 - **Quality**: improve, cleanup
 - **Testing**: test
-- **Documentation**: document
+- **Documentation**: document, langgraph
 - **Version-Control**: git
 - **Meta**: index, load, spawn
 
